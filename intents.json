@@ -1,0 +1,40 @@
+{
+  "intents": [
+    {
+      "tag": "greetings",
+      "patterns": ["bom dia", "boa tarde", "boa noite", "oi", "olá", "hey", ""],
+      "responses": ["Oii, em que posso ajudar?", "Bom dia, posso ajudar em algo?"],
+      "context": [""]
+    },
+    {
+      "tag": "who_are_you",
+      "patterns": ["quem é você?", "com quem eu falou?", "qual o seu nome?"],
+      "responses": ["Eu sou seu assistente virtual da UBS, ainda não tenho um nome específico. Está com alguma dúvida sobre os serviços da unidade?", "Sou o assistente virtual da UBS, em que posso ajudá-lo?"],
+      "context": [""]
+    },
+    {
+      "tag": "purpose",
+      "patterns": ["o que você faz?", "qual a sua utilidade?", "qual o seu propósito?"],
+      "responses": ["Fui criado para tirar dúvidas e auxiliar no atendimento da UBS", "Eu posso te ajudar a buscar informações sobre o atendimento na UBS, quais serviços são prestados, horário de funcionamento, etc."],
+      "context": [""]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["muito obrigado", "muito obrigada", "agradeço pela informação", "grato pela informação", "grata pela informação", "obrigado", "obrigada"],
+      "responses": ["Nada! Posso ajudar em mais alguma coisa?", "De nada! Tem mais alguma dúvida?", "Foi um prazer!", "Nada! Estou a disposição para o que precisar!"],
+      "context": [""]
+    },
+    {
+      "tag": "good_bye",
+      "patterns": ["tchau", "até mais"],
+      "responses": ["Até mais!", "Foi um prazer!", "Espero ter ajudado!"],
+      "context": [""]
+    },
+    {
+      "tag": "anything_else",
+      "patterns": [],
+      "responses": ["Desculpe, não entendi, poderia falar de outra forma?"],
+      "context": [""]
+    }
+  ]
+}
