@@ -14,7 +14,7 @@
     },
     {
       "tag": "purpose",
-      "patterns": ["o que você faz?", "qual a sua utilidade?", "qual o seu propósito?"],
+      "patterns": ["o que você faz?", "qual é a sua utilidade?", "qual é o seu propósito?"],
       "responses": ["Fui criado para tirar dúvidas e auxiliar no atendimento da UBS", "Eu posso te ajudar a buscar informações sobre o atendimento na UBS, quais serviços são prestados, horário de funcionamento, etc."],
       "context": [""]
     },

@@ -3,45 +3,41 @@ import json
 import pickle5 as pickle
 import numpy as np
 
-import nltk
-from nltk.stem import WordNetLemmatizer
+import spacy
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.optimizers import SGD
 
 
-# Loading training data
-lemmatizer = WordNetLemmatizer()
+# LOADING TRAINING DATA (from intents.json)
+
+nlp = spacy.load("pt_core_news_sm")
 
 intents = json.loads(open("intents.json").read())
 
-words = []
-classes = []
-documents = []
-ignore_letters = ['?', '!', '.', ',']
+words = []  #words = list of all lemmatized words from intents patterns
+classes = []  #classes = list of intents tags
+documents = []  #documents = list of tuple with words and respective tags
+ignore_puncts = ['?', '!', '.', ',']
 
 for intent in intents['intents']:
   if intent['tag'] not in classes:
     classes.append(intent['tag'])
   for pattern in intent['patterns']:
-    word_list = nltk.word_tokenize(pattern)
-    words.extend(word_list)
-    documents.append((word_list, intent['tag']))
+    tokens = nlp(pattern)
+    words.extend(tokens)
+    documents.append((tokens, intent['tag']))
 
-# print(documents)
-
-
-# Preparing training data
-
-words = [lemmatizer.lemmatize(word) for word in words if word not in ignore_letters]
+words = [w.lemma_.lower() for w in words if w.text not in ignore_puncts]
 words = sorted(set(words))
-# print(words)
 
 classes = sorted(set(classes))
 
 pickle.dump(words, open('words.pkl', 'wb'))
 pickle.dump(classes, open('classes.pkl', 'wb'))
+
+# PREPARING TRAINING DATA (bag of words)
 
 training = []
 output_empty = [0] * len(classes)
@@ -49,7 +45,7 @@ output_empty = [0] * len(classes)
 for document in documents:
   bag = []
   word_patterns = document[0]
-  word_patterns = [lemmatizer.lemmatize(word.lower()) for word in word_patterns]
+  word_patterns = [w.lemma_.lower() for w in word_patterns]
   for word in words:
     bag.append(1) if word in word_patterns else bag.append(0)
   
@@ -64,7 +60,7 @@ train_x = list(training[:, 0])
 train_y = list(training[:, 1])
 
 
-# Creating Chatbot Model (ESTUDAR MODELOS DE REDES NEURAIS E SUAS CAMADAS)
+# CREATING CHATBOT MODEL (TODO: Estudar topologias/arquiteturas de redes neurais e suas camadas)
 
 model = Sequential()
 model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
