@@ -7,6 +7,14 @@ import spacy
 
 from tensorflow.keras.models import load_model
 
+# Configurando integração com Telegram
+import telebot
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+bot = telebot.TeleBot(os.getenv('BOT_TOKEN'))
+
 nlp = spacy.load("pt_core_news_sm")
 intents = json.loads(open('intents.json').read())
 
@@ -52,13 +60,10 @@ def get_response(intents_list, intents_json):
   return response
 
 print('GO! Bot is running!')
-stop = False
+@bot.message_handler(func=lambda mensagem: True)
+def telegram(mensagem):
+  ints = predict_class(mensagem.text)
+  res = get_response(ints, intents)
+  bot.reply_to(mensagem, res)
 
-while not stop:
-  message = input('')
-  if message != "quit":
-    ints = predict_class(message)
-    res = get_response(ints, intents)
-    print(res)
-  else:
-    stop = True
+bot.infinity_polling()

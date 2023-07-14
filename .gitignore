@@ -1,5 +1,11 @@
+# Virtual Environment Configuration
 env/
 
+# Environment Variable
+.env
+
+# Serialized Dataset
 *.pkl
 
+# Trained Model
 *.h5
